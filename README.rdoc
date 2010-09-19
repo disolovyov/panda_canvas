@@ -1,0 +1,10 @@
+= Panda Canvas
+
+Panda Canvas is an educational 2D drawing canvas on top of Gosu and TexPlay.
+It is created as a teaching tool for the {Computer Club n.a. 8-bit Panda}[http://panda.tsi.lv]
+
+== Installation
+
+Panda Canvas is available as a gem:
+
+  $ gem install panda_canvas

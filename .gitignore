@@ -1,0 +1,7 @@
+*.swp
+*~
+.DS_Store
+*.tmproj
+/*.gem
+/docs
+/test*.rb
