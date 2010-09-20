@@ -24,7 +24,11 @@ def method_missing(sym, *args)
   if PandaCanvas.canvas
     @panda_canvas_image ||= PandaCanvas.canvas.image
     if @panda_canvas_image.respond_to? sym
-      @panda_canvas_image.send sym, *args
+      pci = @panda_canvas_image
+      self.class.instance_eval do
+        define_method(sym) {|*args| pci.send sym, *args }
+      end
+      self.send sym, *args
       found = true
     end
   end
