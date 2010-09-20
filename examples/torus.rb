@@ -25,6 +25,4 @@ PandaCanvas.draw do
     u += 0.1
   end
 
-  pix3d 0, 0, 0
-
 end
