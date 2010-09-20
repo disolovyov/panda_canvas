@@ -3,6 +3,7 @@ $:.unshift(libdir) unless $:.include?(libdir)
 
 require 'texplay'
 require 'panda_canvas/canvas'
+require 'panda_canvas/clean_room'
 
 module PandaCanvas
 
@@ -11,7 +12,9 @@ module PandaCanvas
     attr_reader :canvas
 
     def draw(width=640, height=480, &block)
-      @canvas = Canvas.new(width, height, Fiber.new(&block))
+      clean_room = CleanRoom.new
+      clean_room.instance_eval(&block)
+      @canvas = Canvas.new(width, height, clean_room.calls)
       @canvas.show
     end
 

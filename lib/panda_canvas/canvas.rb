@@ -1,17 +1,14 @@
-require 'texplay'
-require 'fiber'
-
 module PandaCanvas
 
   class Canvas < Gosu::Window
 
     attr_reader :image
 
-    def initialize(width, height, fiber)
+    def initialize(width, height, calls)
       super(width, height, false)
       self.caption = 'Panda Canvas'
       @image = TexPlay.create_image(self, width, height)
-      @fiber = fiber
+      @calls = calls
     end
 
     def draw
@@ -19,7 +16,12 @@ module PandaCanvas
     end
 
     def update
-      @fiber.resume if @fiber.alive?
+      unless @calls.empty?
+        @calls.slice!(0...@calls.index(CleanRoom::FLUSH_SIGNATURE)).each do |call|
+          @image.send call[0], *call[1..-1]
+        end
+        @calls.shift
+      end
     end
 
   end # Canvas

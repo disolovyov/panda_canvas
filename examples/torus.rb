@@ -21,7 +21,7 @@ PandaCanvas.draw do
       pix3d x, y, z
       t += 0.1
     end
-    Fiber.yield
+    flush
     u += 0.1
   end
 
