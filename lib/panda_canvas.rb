@@ -1,42 +1,32 @@
+libdir = File.dirname(__FILE__)
+$:.unshift(libdir) unless $:.include?(libdir)
+
 require 'texplay'
+require 'panda_canvas/canvas'
 
-class PandaCanvas < Gosu::Window
+module PandaCanvas
 
-  # Creates a new canvas window with dimensions +width+ and +height+.
-  def initialize(width=640, height=480, &block)
-    super(width, height, false)
-    self.caption = 'Panda Canvas'
-    @image = TexPlay.create_image(self, width, height)
-    instance_eval(&block)
-    @@commands << PAINT_SIGNATURE
-  end
+  class << self
 
-  # Runs a range of commands until the next flush.
-  def update
-    unless @@commands.empty?
-      @@commands.slice!(0...@@commands.index(PAINT_SIGNATURE)).each do |command|
-        @image.send command[0], *command[1]
-      end
-      @@commands.shift
+    attr_reader :canvas
+
+    def draw(width=640, height=480, &block)
+      @canvas = Canvas.new(width, height, Fiber.new(&block))
+      @canvas.show
+    end
+
+  end # class << self
+
+end # PandaCanvas
+
+def method_missing(sym, *args)
+  found = false
+  if PandaCanvas.canvas
+    @panda_canvas_image ||= PandaCanvas.canvas.image
+    if @panda_canvas_image.respond_to? sym
+      @panda_canvas_image.send sym, *args
+      found = true
     end
   end
-
-  # Draws the image in memory.
-  def draw
-    @image.draw(0, 0, 0)
-  end
-
-  IMAGE_METHODS = (Gosu::Image.public_instance_methods + [:paint]).freeze
-  PAINT_SIGNATURE = [:paint, []].freeze
-
-  @@commands = []
-
-  define_method(:method_missing) do |sym, *args|
-    if IMAGE_METHODS.include? sym
-      @@commands << [sym, args]
-    else
-      super(sym, *args)
-    end
-  end
-
-end # end PandaCanvas
+  super(sym, *args) unless found
+end
