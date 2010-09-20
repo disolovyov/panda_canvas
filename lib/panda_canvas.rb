@@ -3,21 +3,21 @@ require 'texplay'
 class PandaCanvas < Gosu::Window
 
   # Creates a new canvas window with dimensions +width+ and +height+.
-  # A list of +commands+ of the form +[:method, [*args]]+ is passed to be executed.
-  def initialize(width, height, commands)
+  def initialize(width=640, height=480, &block)
     super(width, height, false)
     self.caption = 'Panda Canvas'
     @image = TexPlay.create_image(self, width, height)
-    @commands = commands
+    instance_eval(&block)
+    @@commands << PAINT_SIGNATURE
   end
 
   # Runs a range of commands until the next flush.
   def update
-    unless @commands.empty?
-      @commands.slice!(0...@commands.index(FLUSH_SIGNATURE)).each do |command|
+    unless @@commands.empty?
+      @@commands.slice!(0...@@commands.index(PAINT_SIGNATURE)).each do |command|
         @image.send command[0], *command[1]
       end
-      @commands.shift
+      @@commands.shift
     end
   end
 
@@ -26,25 +26,17 @@ class PandaCanvas < Gosu::Window
     @image.draw(0, 0, 0)
   end
 
-end # end PandaCanvas
+  IMAGE_METHODS = (Gosu::Image.public_instance_methods + [:paint]).freeze
+  PAINT_SIGNATURE = [:paint, []].freeze
 
-__width__ = 640
-__height__ = 480
-__commands__ = []
-IMAGE_METHODS = (Gosu::Image.public_instance_methods + [:flush]).freeze
-FLUSH_SIGNATURE = [:flush, []].freeze
+  @@commands = []
 
-self.class.instance_eval do
   define_method(:method_missing) do |sym, *args|
     if IMAGE_METHODS.include? sym
-      __commands__ << [sym, args]
+      @@commands << [sym, args]
     else
       super(sym, *args)
     end
   end
-end
 
-at_exit do
-  __commands__ << FLUSH_SIGNATURE
-  PandaCanvas.new(__width__, __height__, __commands__).show if $!.nil?
-end
+end # end PandaCanvas
