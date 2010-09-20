@@ -21,19 +21,3 @@ module PandaCanvas
   end # class << self
 
 end # PandaCanvas
-
-def method_missing(sym, *args)
-  found = false
-  if PandaCanvas.canvas
-    @panda_canvas_image ||= PandaCanvas.canvas.image
-    if @panda_canvas_image.respond_to? sym
-      pci = @panda_canvas_image
-      self.class.instance_eval do
-        define_method(sym) {|*args| pci.send sym, *args }
-      end
-      self.send sym, *args
-      found = true
-    end
-  end
-  super(sym, *args) unless found
-end
