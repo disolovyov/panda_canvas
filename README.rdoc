@@ -9,3 +9,7 @@ It is created as a teaching tool for the {Computer Club n.a. 8-bit Panda}[http:/
 Panda Canvas is available as a gem:
 
   $ gem install panda_canvas
+
+== More
+
+Take a look at the [wiki](http://github.com/8bitpanda/panda_canvas/wiki).
