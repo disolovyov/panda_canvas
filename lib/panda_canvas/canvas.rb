@@ -19,7 +19,7 @@ module PandaCanvas
     # Draws the image in memory.
     def draw
       @image.draw(0, 0, 0)
-      @canvas_calls.each {|call| send call[0], *call[1..-1]}
+      @canvas_calls.each {|call| send call[0], *call[1..-1] }
     end
 
     # Sets the font with name +font_name+ and +height+ in pixels to be used when drawing text.

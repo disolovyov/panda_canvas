@@ -22,7 +22,6 @@ module PandaCanvas
     # Initializes the clean object for method call capturing.
     def initialize
       @_calls = []
-      @_default_font_name = Gosu::default_font_name
     end
 
     # Capures and stores all missing method calls in the instance.
@@ -38,7 +37,7 @@ module PandaCanvas
     # Uses default typeface, if +font_name+ is +nil+.
     # All subsequent text drawing calls will use the given font.
     def font(height, font_name=nil)
-      @_calls << [:font, font_name || @_default_font_name, height]
+      @_calls << [:font, font_name || Gosu::default_font_name, height]
     end
 
     # Adds text +s+ to be drawn on screen with current font and +color+.
