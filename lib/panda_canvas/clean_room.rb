@@ -10,20 +10,20 @@ module PandaCanvas
     # Returns an array of captured method calls.
     # A +flush+ is appended at the end.
     def calls
-      @calls + [FLUSH_SIGNATURE]
+      @_calls + [FLUSH_SIGNATURE]
     end
 
     # Initializes the clean object for method call capturing.
     def initialize
-      @calls = []
+      @_calls = []
     end
 
     # Capures and stores all missing method calls in the instance.
     def method_missing(sym, *args)
       if sym == :flush
-        @calls << FLUSH_SIGNATURE
+        @_calls << FLUSH_SIGNATURE
       else
-        @calls << [sym, *args]
+        @_calls << [sym, *args]
       end
     end
 
