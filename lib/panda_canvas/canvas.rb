@@ -13,15 +13,15 @@ module PandaCanvas
       self.caption = 'Panda Canvas'
       @image = TexPlay.create_image(self, width, height)
       @calls = calls
-      @canvas_update_calls = CleanRoom::CANVAS_UPDATE
-      @canvas_draw_calls = []
+      @update_calls = CleanRoom::CANVAS_UPDATE
+      @draw_calls = []
       @used_fonts = {}
     end
 
     # Draws the image in memory.
     def draw
       @image.draw(0, 0, 0)
-      @canvas_draw_calls.each {|call| send call[0], *call[1..-1] }
+      @draw_calls.each {|call| send call[0], *call[1..-1] }
     end
 
     # Sets the font with name +font_name+ and +height+ in pixels to be used when drawing text.
@@ -40,17 +40,17 @@ module PandaCanvas
     def update
       unless @calls.empty?
         @calls.slice!(0...@calls.index(CleanRoom::FLUSH)).each do |call|
-          if CleanRoom::CANVAS_UPDATE_CALLS.include? call[0]
-            @canvas_update_calls << call
-          elsif CleanRoom::CANVAS_DRAW_CALLS.include? call[0]
-            @canvas_draw_calls << call
+          if CleanRoom::UPDATE_CALLS.include? call[0]
+            @update_calls << call
+          elsif CleanRoom::DRAW_CALLS.include? call[0]
+            @draw_calls << call
           else
             @image.send call[0], *call[1..-1]
           end
         end
         @calls.shift
       end
-      @canvas_update_calls.each {|call| send call[0], *call[1..-1] }
+      @update_calls.each {|call| send call[0], *call[1..-1] }
     end
 
   end # Canvas
