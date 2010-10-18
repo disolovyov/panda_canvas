@@ -11,7 +11,7 @@ module PandaCanvas
     CANVAS_UPDATE = [[:font, Gosu::default_font_name, 12]]
 
     # Names of calls that need to be sent directly to Canvas instead of the TexPlay image on draw.
-    CANVAS_CALLS = [:font, :text].freeze
+    CANVAS_CALLS = [:font, :text, :text_rel].freeze
 
     # Returns an array of captured method calls.
     # A +flush+ is appended at the end.
