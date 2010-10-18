@@ -23,7 +23,7 @@ module PandaCanvas
     # Runs a range of commands until the next flush.
     def update
       unless @calls.empty?
-        @calls.slice!(0...@calls.index(CleanRoom::FLUSH_SIGNATURE)).each do |call|
+        @calls.slice!(0...@calls.index(CleanRoom::FLUSH)).each do |call|
           @image.send call[0], *call[1..-1]
         end
         @calls.shift
