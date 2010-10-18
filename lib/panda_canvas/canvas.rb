@@ -35,6 +35,12 @@ module PandaCanvas
 
     # Draws text +s+ in coordinates +x+ and +y+ with a given +color+.
     def text(s, x, y, color)
+      if color.is_a? Symbol
+        rgb = TexPlay::Colors.const_get(color.capitalize)[0..2].map! do |c|
+          c * 255
+        end
+        color = Gosu::Color.new(255, *rgb)
+      end
       @font.draw(s, x, y, 0, 1, 1, color)
     end
 
