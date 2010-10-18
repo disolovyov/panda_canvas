@@ -24,7 +24,8 @@ module PandaCanvas
     end
 
     # Sets the font with name +font_name+ and +height+ in pixels to be used when drawing text.
-    def font(font_name, height)
+    # All subsequent text drawing calls will use the given font.
+    def font(height, font_name=Gosu::default_font_name)
       key = [font_name, height]
       if @used_fonts.include? key
         @font = @used_fonts[key]
@@ -42,7 +43,7 @@ module PandaCanvas
     end
 
     # Draws text +s+ in coordinates +x+ and +y+ with a given +color+.
-    def text(s, x, y, color)
+    def text(s, x, y, color=0xffffffff)
       color = sym_color(color) if color.is_a? Symbol
       @font.draw(s, x, y, 0, 1, 1, color)
     end
@@ -53,7 +54,7 @@ module PandaCanvas
     # If it is 1.0, the text will be to the left of +x+.
     # If it is 0.5, it will be centered on +x+.
     # The same applies to +rel_y+.
-    def text_rel(s, x, y, rel_x, rel_y, color)
+    def text_rel(s, x, y, rel_x, rel_y, color=0xffffffff)
       color = sym_color(color) if color.is_a? Symbol
       @font.draw_rel(s, x, y, 0, rel_x, rel_y, 1, 1, color)
     end
