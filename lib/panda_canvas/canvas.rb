@@ -14,6 +14,7 @@ module PandaCanvas
       @image = TexPlay.create_image(self, width, height)
       @calls = calls
       @canvas_calls = CleanRoom::CANVAS_DEFAULTS
+      @used_fonts = {}
     end
 
     # Draws the image in memory.
@@ -24,7 +25,9 @@ module PandaCanvas
 
     # Sets the font with name +font_name+ and +height+ in pixels to be used when drawing text.
     def font(font_name, height)
-      @font = Gosu::Font.new(self, font_name, height)
+      key = [font_name, height]
+      return @used_fonts[key] if @used_fonts.include? key
+      @font = @used_fonts[key] = Gosu::Font.new(self, font_name, height)
     end
 
     # Draws text +s+ in coordinates +x+ and +y+ with a given +color+.
