@@ -2,6 +2,7 @@ libdir = File.dirname(__FILE__)
 $:.unshift(libdir) unless $:.include?(libdir)
 
 require 'texplay'
+require 'panda_canvas/drawing_methods'
 require 'panda_canvas/canvas'
 require 'panda_canvas/clean_room'
 
