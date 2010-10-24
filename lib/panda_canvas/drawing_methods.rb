@@ -5,6 +5,7 @@ module PandaCanvas
     # Sets the font with name +font_name+ and +height+ in pixels to be used when drawing text.
     # All subsequent text drawing calls will use the given font.
     def font(height, font_name=Gosu::default_font_name)
+      @used_fonts ||= {}
       key = [font_name, height]
       if @used_fonts.include? key
         @font = @used_fonts[key]

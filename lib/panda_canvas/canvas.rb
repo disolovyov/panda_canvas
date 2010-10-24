@@ -16,7 +16,6 @@ module PandaCanvas
       @image = TexPlay.create_image(self, width, height)
       @calls = calls
       @canvas_calls = []
-      @used_fonts = {}
     end
 
     # Draws the image in memory.
