@@ -3,6 +3,8 @@ $:.unshift(libdir) unless $:.include?(libdir)
 
 require 'texplay'
 require 'panda_canvas/drawing_methods'
+require 'panda_canvas/animation_canvas'
+require 'panda_canvas/animation_clean_room'
 require 'panda_canvas/canvas'
 require 'panda_canvas/clean_room'
 
@@ -21,6 +23,13 @@ module PandaCanvas
       clean_room = CleanRoom.new
       clean_room.instance_eval(&block)
       @canvas = Canvas.new(width, height, clean_room.calls)
+      @canvas.show
+    end
+
+    # Takes a +block+ with animation code.
+    # The code is then drawn in a window with dimensions +width+ and +height+.
+    def animate(width=640, height=480, &block)
+      @canvas = AnimationCanvas.new(width, height, &block)
       @canvas.show
     end
 
