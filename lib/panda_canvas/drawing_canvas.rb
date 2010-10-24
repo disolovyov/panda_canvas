@@ -1,7 +1,7 @@
 module PandaCanvas
 
-  # Canvas is a subclassed Gosu::Window that is used for drawing.
-  class Canvas < Gosu::Window
+  # DrawingCanvas is a subclassed Gosu::Window that is used for drawing.
+  class DrawingCanvas < Gosu::Window
 
     include DrawingMethods
 
@@ -14,7 +14,7 @@ module PandaCanvas
       super(width, height, false)
       self.caption = 'Panda Canvas'
       @image = TexPlay.create_image(self, width, height)
-      clean_room = CleanRoom.new
+      clean_room = DrawingCleanRoom.new
       clean_room.instance_eval(&block)
       @calls = clean_room.calls
       @canvas_calls = []
@@ -30,7 +30,8 @@ module PandaCanvas
     def update
       DrawingMethods::CANVAS_UPDATE.each {|call| send call[0], *call[1..-1] }
       unless @calls.empty?
-        @calls.slice!(0...@calls.index(CleanRoom::FLUSH)).each do |call|
+        flush_index = @calls.index(DrawingCleanRoom::FLUSH)
+        @calls.slice!(0...flush_index).each do |call|
           if DrawingMethods::CANVAS_CALLS.include? call[0]
             @canvas_calls << call
           else

@@ -1,7 +1,7 @@
 module PandaCanvas
 
-  # CleanRoom is used to capture and store method calls for delayed execution.
-  class CleanRoom
+  # DrawingCleanRoom is used to capture and store method calls for delayed execution.
+  class DrawingCleanRoom
 
     # Signature for the +flush+ method.
     # This method is used to stop calculation and draw the frame.

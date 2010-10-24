@@ -5,8 +5,8 @@ require 'texplay'
 require 'panda_canvas/drawing_methods'
 require 'panda_canvas/animation_canvas'
 require 'panda_canvas/animation_clean_room'
-require 'panda_canvas/canvas'
-require 'panda_canvas/clean_room'
+require 'panda_canvas/drawing_canvas'
+require 'panda_canvas/drawing_clean_room'
 
 # Panda Canvas is an educational 2D drawing canvas.
 module PandaCanvas
@@ -20,7 +20,7 @@ module PandaCanvas
     # Takes a +block+ with drawing code.
     # The code is then drawn in a window with dimensions +width+ and +height+.
     def draw(width=640, height=480, &block)
-      @canvas = Canvas.new(width, height, &block)
+      @canvas = DrawingCanvas.new(width, height, &block)
       @canvas.show
     end
 
