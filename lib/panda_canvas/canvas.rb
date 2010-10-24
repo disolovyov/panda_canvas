@@ -9,12 +9,14 @@ module PandaCanvas
     attr_reader :image
 
     # Creates a new canvas window with dimensions +width+ and +height+.
-    # A list of +calls+ in the form +[:method, *args]+ is passed to be executed.
-    def initialize(width, height, calls)
+    # A +block+ is passed to be executed.
+    def initialize(width, height, &block)
       super(width, height, false)
       self.caption = 'Panda Canvas'
       @image = TexPlay.create_image(self, width, height)
-      @calls = calls
+      clean_room = CleanRoom.new
+      clean_room.instance_eval(&block)
+      @calls = clean_room.calls
       @canvas_calls = []
     end
 

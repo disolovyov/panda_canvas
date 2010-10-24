@@ -9,6 +9,7 @@ module PandaCanvas
     attr_reader :image
 
     # Creates a new canvas window with dimensions +width+ and +height+.
+    # A +block+ is passed to be executed.
     def initialize(width, height, &block)
       super(width, height, false)
       self.caption = 'Panda Canvas'

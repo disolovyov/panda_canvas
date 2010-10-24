@@ -20,9 +20,7 @@ module PandaCanvas
     # Takes a +block+ with drawing code.
     # The code is then drawn in a window with dimensions +width+ and +height+.
     def draw(width=640, height=480, &block)
-      clean_room = CleanRoom.new
-      clean_room.instance_eval(&block)
-      @canvas = Canvas.new(width, height, clean_room.calls)
+      @canvas = Canvas.new(width, height, &block)
       @canvas.show
     end
 
