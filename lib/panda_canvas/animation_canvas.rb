@@ -26,7 +26,7 @@ module PandaCanvas
       @clean_room.canvas_calls.each {|call| send call[0], *call[1..-1] }
     end
 
-    # Runs an animation block with a given frame number.
+    # Runs an animation block.
     def update
       @image.rect 0, 0, width, height, :color => :black, :fill => true
       DrawingMethods::CANVAS_UPDATE.each {|call| send call[0], *call[1..-1] }
