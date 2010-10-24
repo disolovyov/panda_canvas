@@ -28,7 +28,8 @@ module PandaCanvas
     def method_missing(sym, *args)
       if sym == :flush
         @_calls << FLUSH
-      elsif Gosu::Image.public_instance_methods.include? sym
+      elsif (CANVAS_CALLS.include? sym) ||
+        (Gosu::Image.public_instance_methods.include? sym)
         @_calls << [sym, *args]
       else
         super
