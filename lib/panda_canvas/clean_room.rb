@@ -7,12 +7,6 @@ module PandaCanvas
     # This method is used to stop calculation and draw the frame.
     FLUSH = [:flush].freeze
 
-    # Signature set for defaults that are executed in each update event.
-    CANVAS_UPDATE = [[:font, 12]]
-
-    # Names of calls that need to be sent directly to Canvas instead of the TexPlay image on draw.
-    CANVAS_CALLS = [:font, :text, :text_rel].freeze
-
     # Returns an array of captured method calls.
     # A +flush+ is appended at the end.
     def calls
@@ -28,7 +22,7 @@ module PandaCanvas
     def method_missing(sym, *args)
       if sym == :flush
         @_calls << FLUSH
-      elsif (CANVAS_CALLS.include? sym) ||
+      elsif (DrawingMethods::CANVAS_CALLS.include? sym) ||
         (Gosu::Image.public_instance_methods.include? sym)
         @_calls << [sym, *args]
       else

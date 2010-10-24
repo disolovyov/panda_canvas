@@ -2,6 +2,12 @@ module PandaCanvas
 
   module DrawingMethods
 
+    # Signature set for defaults that are executed in each update event.
+    CANVAS_UPDATE = [[:font, 12]]
+
+    # Names of calls that need to be sent directly to Canvas instead of the TexPlay image on draw.
+    CANVAS_CALLS = [:font, :text, :text_rel].freeze
+
     # Sets the font with name +font_name+ and +height+ in pixels to be used when drawing text.
     # All subsequent text drawing calls will use the given font.
     def font(height, font_name=Gosu::default_font_name)

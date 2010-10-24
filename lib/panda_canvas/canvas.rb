@@ -26,10 +26,10 @@ module PandaCanvas
 
     # Runs a range of commands until the next flush.
     def update
-      CleanRoom::CANVAS_UPDATE.each {|call| send call[0], *call[1..-1] }
+      DrawingMethods::CANVAS_UPDATE.each {|call| send call[0], *call[1..-1] }
       unless @calls.empty?
         @calls.slice!(0...@calls.index(CleanRoom::FLUSH)).each do |call|
-          if CleanRoom::CANVAS_CALLS.include? call[0]
+          if DrawingMethods::CANVAS_CALLS.include? call[0]
             @canvas_calls << call
           else
             @image.send call[0], *call[1..-1]
