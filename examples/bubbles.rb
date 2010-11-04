@@ -1,4 +1,4 @@
-require 'panda_canvas'
+require_relative '../lib/panda_canvas'
 
 def rotate(x, y, angle)
   new_x = x * Math.cos(angle) - y * Math.sin(angle)
