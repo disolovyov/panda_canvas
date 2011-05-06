@@ -27,6 +27,6 @@ module PandaCanvas
       end
     end
 
-  end # CleanRoom
+  end # AnimationAgent
 
 end # PandaCanvas

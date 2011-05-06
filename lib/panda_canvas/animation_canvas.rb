@@ -35,6 +35,6 @@ module PandaCanvas
       @clean_room.instance_eval &@block
     end
 
-  end
+  end # AnimationCanvas
 
 end # PandaCanvas

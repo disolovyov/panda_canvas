@@ -42,6 +42,6 @@ module PandaCanvas
       end
     end
 
-  end # Canvas
+  end # DrawingCanvas
 
 end # PandaCanvas
