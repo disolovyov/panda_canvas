@@ -12,4 +12,4 @@ Panda Canvas is available as a gem:
 
 == More
 
-Take a look at the {wiki}[http://github.com/8bitpanda/panda_canvas/wiki].
+Take a look at the {wiki}[http://github.com/dimituri/panda_canvas/wiki].

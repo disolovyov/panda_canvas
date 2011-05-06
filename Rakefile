@@ -1,13 +1,7 @@
-require 'rake/rdoctask'
 require File.expand_path('../lib/panda_canvas/version', __FILE__)
+require 'yard'
 
-Rake::RDocTask.new do |rd|
-  rd.main = 'README.rdoc'
-  rd.options << '--all'
-  rd.rdoc_dir = 'docs'
-  rd.rdoc_files.include 'README.rdoc', 'LICENSE', File.join('lib', '**', '*.rb')
-  rd.title = 'Panda Canvas Documentation'
-end
+YARD::Rake::YardocTask.new
 
 desc 'Build gem from current sources'
 task :build do
@@ -16,10 +10,10 @@ end
 
 desc 'Build gem from current sources and push to RubyGems.org'
 task :release => :build do
-  system "gem push panda_canvas-#{::PandaCanvas::VERSION}.gem"
+  system "gem push panda_canvas-#{::PandaCanvas::Version}.gem"
 end
 
-desc 'Build RDoc, and build gem'
-task :all => [:rdoc, :build]
+desc 'Generate docs and build gem'
+task :all => [:yard, :build]
 
 task :default => :all
