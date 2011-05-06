@@ -1,7 +1,8 @@
 module PandaCanvas
 
-  # AnimationCleanRoom is used to capture and store method calls for delayed execution.
-  class AnimationCleanRoom
+  # AnimationAgent is used to capture drawing method calls
+  # and pass them to a TextPlay image in the correct order.
+  class AnimationAgent
 
     # Array of methods that need to be passed to canvas.
     attr_accessor :canvas_calls

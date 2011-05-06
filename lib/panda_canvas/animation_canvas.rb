@@ -15,7 +15,7 @@ module PandaCanvas
       self.caption = 'Panda Canvas'
       @block = block
       @image = TexPlay.create_image(self, width, height)
-      @clean_room = AnimationCleanRoom.new(@image)
+      @clean_room = AnimationAgent.new(@image)
       @clean_room.canvas_calls = []
       @clean_room.frame = 0
     end
