@@ -3,9 +3,8 @@ $:.unshift(libdir) unless $:.include?(libdir)
 
 require 'texplay'
 require 'panda_canvas/drawing_methods'
-require 'panda_canvas/animation_agent'
+require 'panda_canvas/drawing_agent'
 require 'panda_canvas/animation_canvas'
-require 'panda_canvas/drawing_with_clean_room'
 require 'panda_canvas/drawing_canvas'
 require 'panda_canvas/drawing_clean_room'
 

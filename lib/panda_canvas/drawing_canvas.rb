@@ -4,7 +4,16 @@ module PandaCanvas
   class DrawingCanvas < Gosu::Window
 
     include DrawingMethods
-    include DrawingWithCleanRoom
+
+    # Include platform-specific update behavior.
+    if RUBY_PLATFORM =~ /mswin|mingw/
+      require 'panda_canvas/drawing_with_clean_room'
+      include DrawingWithCleanRoom
+    else
+      require 'fiber'
+      require 'panda_canvas/drawing_with_fibers'
+      include DrawingWithFibers
+    end
 
     # TexPlay image, which is drawn in the window.
     attr_reader :image

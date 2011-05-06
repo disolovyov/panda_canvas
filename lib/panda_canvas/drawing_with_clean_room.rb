@@ -2,7 +2,7 @@ module PandaCanvas
 
   # DrawingWithCleanRoom adds behavior to perform canvas updates
   # using method capturing and delayed execution.
-  # This is inefficient and should only be used in environments
+  # This is faster, but somewhat ugly and should only be used in environments
   # where resuming fibers in the Gosu draw loop results in a segfault.
   module DrawingWithCleanRoom
 
@@ -16,8 +16,8 @@ module PandaCanvas
 
     # Performs drawing until the next flush using the captured sequence.
     def update
-      DrawingMethods::CANVAS_UPDATE.each {|call| send call[0], *call[1..-1] }
       unless @calls.empty?
+        DrawingMethods::CANVAS_UPDATE.each {|call| send call[0], *call[1..-1] }
         flush_index = @calls.index(DrawingCleanRoom::FLUSH)
         @calls.slice!(0...flush_index).each do |call|
           if DrawingMethods::CANVAS_CALLS.include? call[0]
