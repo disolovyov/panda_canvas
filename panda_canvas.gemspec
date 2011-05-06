@@ -14,5 +14,5 @@ Gem::Specification.new do |s|
   s.files = Dir.glob('lib/**/*') << 'LICENSE' << 'README.rdoc'
 
   s.add_runtime_dependency 'gosu', '~> 0.7.24'
-  s.add_runtime_dependency 'texplay', '~> 0.2.981'
+  s.add_runtime_dependency 'texplay', '~> 0.3.5'
 end
