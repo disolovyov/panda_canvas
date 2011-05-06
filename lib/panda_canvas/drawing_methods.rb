@@ -1,5 +1,6 @@
 module PandaCanvas
 
+  # DrawingMethods is a set of drawing methods used by PandaCanvas canvases.
   module DrawingMethods
 
     # Signature set for defaults that are executed in each update event.
