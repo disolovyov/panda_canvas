@@ -1,14 +1,25 @@
 = Panda Canvas
 
-Panda Canvas is an educational 2D drawing canvas on top of {Gosu}[http://www.libgosu.org/] and {TexPlay}[http://github.com/banister/texplay].
+Panda Canvas is an educational 2D drawing canvas on top of
+{Gosu}[http://www.libgosu.org/] and
+{TexPlay}[http://github.com/banister/texplay].
 
-It is created as a teaching tool for the {Computer Club n.a. 8-bit Panda}[http://panda.tsi.lv].
+It is created as a teaching tool for the
+{Computer Club n.a. 8-bit Panda}[http://panda.tsi.lv].
 
 == Installation
 
 Panda Canvas is available as a gem:
 
   $ gem install panda_canvas
+
+== Known Problems
+
+Running an endless draw block is not possible on Windows. In a unix environment
+Panda Canvas uses fibers to pause the draw block in the Gosu game loop on
+flush. With tested Gosu and Ruby versions on Windows this results in a
+segfault. So, instead of fibers, the block must be run once and complete to
+capture all of the canvas calls before drawing on screen.
 
 == More
 
